@@ -25,3 +25,22 @@ def logits_function(p):
     a1 = np.tanh(z1) # Ativação da primeira camada
     logits = a1.dot(W2) + b2
     return logits
+
+
+def forward_propagation(params):
+    logits = logits_function(params)
+
+    exp_scores = np.exp(logits)
+    probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True)
+
+    corect_logprobs = -np.log(probs[range(numero_dados), y])
+    loss = np.sum(corect_logprobs) / numero_dados
+
+    return loss
+
+def f(x):
+    num_particulas = x.shape[0]
+    j = [forward_propagation(x[i]) for i in range(numero_particulas)]
+    return np.array(j)
+
+# Aplicação do PSO
