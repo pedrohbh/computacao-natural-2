@@ -1,13 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import sklearn.datasets import load_iris
+from sklearn.datasets import load_iris
 
 import pyswarms as ps
 
 data = load_iris()
 
 X = data.data
-Y = data.target
+y = data.target
 
 n_camada_de_entrada = 4
 n_camada_oculta = 20
@@ -40,7 +40,20 @@ def forward_propagation(params):
 
 def f(x):
     num_particulas = x.shape[0]
-    j = [forward_propagation(x[i]) for i in range(numero_particulas)]
+    j = [forward_propagation(x[i]) for i in range(num_particulas)]
     return np.array(j)
 
 # Aplicação do PSO
+opcoes = {'c1': 0.5, 'c2': 0.3, 'w': 0.9}
+
+dimensoes = (n_camada_de_entrada * n_camada_oculta) + (n_camada_oculta * n_camada_saida) + n_camada_oculta + n_camada_saida
+otimizador = ps.single.GlobalBestPSO(n_particles=100, dimensions=dimensoes, options=opcoes)
+
+cost, pos = otimizador.optimize(f, iters=1000)
+
+def predict(pos):
+    logits = logits_function(pos)
+    y_pred = np.argmax(logits, axis=1)
+    return y_pred
+
+print("Acurácia encontrada: {}".format((predict(pos) == y).mean()))
