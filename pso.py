@@ -37,6 +37,7 @@ def logits_function(p, X_selecionado):
 
 def forward_propagation(params, X_selecionado, Y_selecionado):
     logits = logits_function(params, X_selecionado)
+    numero_dados = Y_selecionado.shape[0]
 
     exp_scores = np.exp(logits)
     probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True)
@@ -53,16 +54,16 @@ def f(x, X_selecionado, Y_selecionado):
 
 # Aplicação do PSO
 opcoes = {'c1': 0.5, 'c2': 0.3, 'w': 0.9}
-args = {x_train, y_train}
+
 
 dimensoes = (n_camada_de_entrada * n_camada_oculta) + (n_camada_oculta * n_camada_saida) + n_camada_oculta + n_camada_saida
-otimizador = ps.single.GlobalBestPSO(n_particles=100, dimensions=dimensoes, options=opcoes, args=args)
+otimizador = ps.single.GlobalBestPSO(n_particles=100, dimensions=dimensoes, options=opcoes)
 
-cost, pos = otimizador.optimize(f, iters=1000)
+cost, pos = otimizador.optimize(f, iters=1000, X_selecionado=x_train, Y_selecionado=y_train)
 
-def predict(pos):
-    logits = logits_function(pos)
+def predict(pos, X_selecionado):
+    logits = logits_function(pos, X_selecionado)
     y_pred = np.argmax(logits, axis=1)
     return y_pred
 
-print("Acurácia encontrada: {}".format((predict(pos) == y).mean()))
+print("Acurácia encontrada: {}".format((predict(pos, x_test) == y_test).mean()))
