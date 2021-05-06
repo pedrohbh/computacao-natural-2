@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.datasets import load_iris
 from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
 
 import pyswarms as ps
 
@@ -14,6 +15,7 @@ y = data.target
 # Processo de normalização
 X = preprocessing.normalize(X)
 
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
 n_camada_de_entrada = 4
 n_camada_oculta = 20
