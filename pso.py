@@ -23,39 +23,40 @@ n_camada_saida = 3
 
 numero_dados = 150
 
-def logits_function(p):
+def logits_function(p, X_selecionado):
     W1 = p[0:80].reshape((n_camada_de_entrada, n_camada_oculta))
     b1 = p[80:100].reshape((n_camada_oculta,))
     W2 = p[100:160].reshape((n_camada_oculta,n_camada_saida))
     b2 = p[160:163].reshape((n_camada_saida,))
 
-    z1 = X.dot(W1) + b1
+    z1 = X_selecionado.dot(W1) + b1
     a1 = np.tanh(z1) # Ativação da primeira camada
     logits = a1.dot(W2) + b2
     return logits
 
 
-def forward_propagation(params):
-    logits = logits_function(params)
+def forward_propagation(params, X_selecionado, Y_selecionado):
+    logits = logits_function(params, X_selecionado)
 
     exp_scores = np.exp(logits)
     probs = exp_scores / np.sum(exp_scores, axis=1, keepdims=True)
 
-    corect_logprobs = -np.log(probs[range(numero_dados), y])
+    corect_logprobs = -np.log(probs[range(numero_dados), Y_selecionado])
     loss = np.sum(corect_logprobs) / numero_dados
 
     return loss
 
-def f(x):
+def f(x, X_selecionado, Y_selecionado):
     num_particulas = x.shape[0]
-    j = [forward_propagation(x[i]) for i in range(num_particulas)]
+    j = [forward_propagation(x[i], X_selecionado, Y_selecionado) for i in range(num_particulas)]
     return np.array(j)
 
 # Aplicação do PSO
 opcoes = {'c1': 0.5, 'c2': 0.3, 'w': 0.9}
+args = {x_train, y_train}
 
 dimensoes = (n_camada_de_entrada * n_camada_oculta) + (n_camada_oculta * n_camada_saida) + n_camada_oculta + n_camada_saida
-otimizador = ps.single.GlobalBestPSO(n_particles=100, dimensions=dimensoes, options=opcoes)
+otimizador = ps.single.GlobalBestPSO(n_particles=100, dimensions=dimensoes, options=opcoes, args=args)
 
 cost, pos = otimizador.optimize(f, iters=1000)
 
