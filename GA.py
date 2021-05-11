@@ -10,7 +10,7 @@ import pyswarms as ps
 from pymoo.algorithms.so_genetic_algorithm import GA
 from pymoo.factory import get_problem
 from pymoo.optimize import minimize
-
+from pymoo.model.problem import FunctionalProblem
 
 data = load_iris()
 
@@ -75,6 +75,9 @@ print("Acurácia encontrada: {}".format((predict(pos, x_test) == y_test).mean())
 
 problem = get_problem("g01")
 
+objs = [lambda x: f(x, x_train, y_train)]
+
+#problem = FunctionalProblem(dimensoes, objs)
 
 
 algorithm = GA(
