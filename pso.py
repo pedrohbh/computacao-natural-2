@@ -57,7 +57,7 @@ opcoes = {'c1': 0.5, 'c2': 0.3, 'w': 0.9}
 
 
 dimensoes = (n_camada_de_entrada * n_camada_oculta) + (n_camada_oculta * n_camada_saida) + n_camada_oculta + n_camada_saida
-otimizador = ps.single.GlobalBestPSO(n_particles=100, dimensions=dimensoes, options=opcoes)
+otimizador = ps.single.GlobalBestPSO(n_particles=25, dimensions=dimensoes, options=opcoes)
 
 cost, pos = otimizador.optimize(f, iters=1000, X_selecionado=x_train, Y_selecionado=y_train)
 
