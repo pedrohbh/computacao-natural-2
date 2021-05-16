@@ -60,8 +60,7 @@ features, labels = next(iter(train_dataset))
 print(features[:5])
 
 model = tf.keras.Sequential([
-  tf.keras.layers.Dense(10, activation=tf.nn.relu, input_shape=(4,)),  # input shape required
-  tf.keras.layers.Dense(10, activation=tf.nn.relu),
+  tf.keras.layers.Dense(20, activation=tf.nn.relu, input_shape=(4,)),  # input shape required
   tf.keras.layers.Dense(3)
 ])
 
