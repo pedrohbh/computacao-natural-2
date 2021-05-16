@@ -1,22 +1,9 @@
 import os
 import matplotlib.pyplot as plt
 import tensorflow as tf
-from sklearn.datasets import load_iris
-from sklearn import preprocessing
-from sklearn.model_selection import train_test_split
 
 print("TensorFlow version: {}".format(tf.__version__))
 print("Eager execution: {}".format(tf.executing_eagerly()))
-
-data = load_iris()
-
-X = data.data
-y = data.target
-
-# Processo de normalização
-X = preprocessing.normalize(X)
-
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
 train_dataset_url = "https://storage.googleapis.com/download.tensorflow.org/data/iris_training.csv"
 
@@ -147,7 +134,6 @@ for epoch in range(num_epochs):
     print("Epoch {:03d}: Loss: {:.3f}, Accuracy: {:.3%}".format(epoch,
                                                                 epoch_loss_avg.result(),
                                                                 epoch_accuracy.result()))
-"""
 fig, axes = plt.subplots(2, sharex=True, figsize=(12, 8))
 fig.suptitle('Training Metrics')
 
@@ -158,7 +144,7 @@ axes[1].set_ylabel("Accuracy", fontsize=14)
 axes[1].set_xlabel("Epoch", fontsize=14)
 axes[1].plot(train_accuracy_results)
 plt.show()
-"""
+
 test_url = "https://storage.googleapis.com/download.tensorflow.org/data/iris_test.csv"
 
 test_fp = tf.keras.utils.get_file(fname=os.path.basename(test_url),
