@@ -73,11 +73,11 @@ def predict(pos, X_selecionado):
 
 print("Acurácia encontrada: {}".format((predict(pos, x_test) == y_test).mean()))
 
-problem = get_problem("g01")
+#problem = get_problem("g01")
 
-objs = [lambda x: f(x, x_train, y_train)]
+objs = [lambda x: f(np.array(x), x_train, y_train)]
 
-#problem = FunctionalProblem(dimensoes, objs)
+problem = FunctionalProblem(dimensoes, objs)
 
 
 algorithm = GA(
@@ -85,7 +85,7 @@ algorithm = GA(
     eliminate_duplicates=True)
 
 res = minimize(problem,
-               algorithm,
+               algorithm,               
                seed=1,
                verbose=False)
 
