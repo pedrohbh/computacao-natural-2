@@ -20,6 +20,7 @@ X = preprocessing.normalize(X)
 x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
 
+
 def fitness_func(solution, sol_idx):
   global data_inputs, data_outputs, keras_ga, model
 
@@ -30,10 +31,12 @@ def fitness_func(solution, sol_idx):
 
   predictions = model.predict(data_inputs)
 
-  cce = tensorflow.keras.losses.CategoricalCrossentropy()
-  solution_fitness = 1.0 / (cce(data_outputs, predictions).numpy() + 0.00000001)
+  mae = tensorflow.keras.losses.MeanAbsoluteError()
+  abs_error = mae(data_outputs, predictions).numpy() + 0.00000001
+  solution_fitness = 1.0 / abs_error
 
   return solution_fitness
+
 
 
 def callback_generation(ga_instance):
@@ -80,8 +83,9 @@ predictions = model.predict(data_inputs)
 # print("Predictions : \n", predictions)
 
 # Calculate the categorical crossentropy for the trained model.
-cce = tensorflow.keras.losses.CategoricalCrossentropy()
-print("Categorical Crossentropy : ", cce(data_outputs, predictions).numpy())
+mae = tensorflow.keras.losses.MeanAbsoluteError()
+abs_error = mae(data_outputs, predictions).numpy()
+print("Absolute Error : ", abs_error)
 
 # Calculate the classification accuracy for the trained model.
 ca = tensorflow.keras.metrics.CategoricalAccuracy()
