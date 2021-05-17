@@ -6,14 +6,22 @@ from numpy import cos
 from numpy import e
 from numpy import pi
 from numpy import argsort
+from numpy.core.records import array
 from numpy.random import randn
 from numpy.random import rand
 from numpy.random import seed
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.datasets import load_iris
+from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
+
 
 # objective function
 def objective(v):
-	x, y = v
-	return -20.0 * exp(-0.2 * sqrt(0.5 * (x**2 + y**2))) - exp(0.5 * (cos(2 * pi * x) + cos(2 * pi * y))) + e + 20
+	x, y, z = v
+	return -20.0 * exp(-0.2 * sqrt(0.5 * (x**2 + y**2))) - exp(0.5 * (cos(2 * pi * x) + cos(2 * pi * y))) + e + 20 + z
 
 # check if a point is within the bounds of the search
 def in_bounds(point, bounds):
@@ -65,7 +73,14 @@ def es_comma(objective, bounds, n_iter, step_size, mu, lam):
 # seed the pseudorandom number generator
 seed(1)
 # define range for input
-bounds = asarray([[-5.0, 5.0], [-5.0, 5.0]])
+n_elementos = 3
+vetor_de_limites = []
+lower_bound = -5.0
+upper_bound = 5.0
+
+for _ in range(3):
+    vetor_de_limites.append([lower_bound, upper_bound])
+bounds = asarray(vetor_de_limites)
 # define the total iterations
 n_iter = 5000
 # define the maximum step size
