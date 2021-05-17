@@ -59,14 +59,9 @@ def forward_propagation(params, X_selecionado, Y_selecionado):
     return loss
 
 def f(x, X_selecionado, Y_selecionado):
-    num_particulas = x.shape[0]
-    j = [forward_propagation(x[i], X_selecionado, Y_selecionado) for i in range(num_particulas)]
-    return np.array(j)
+    j = forward_propagation(x, X_selecionado, Y_selecionado)
+    return j
 
-# objective function
-def objective(v):
-	x, y, z = v
-	return -20.0 * exp(-0.2 * sqrt(0.5 * (x**2 + y**2))) - exp(0.5 * (cos(2 * pi * x) + cos(2 * pi * y))) + e + 20 + z
 
 # check if a point is within the bounds of the search
 def in_bounds(point, bounds):
@@ -103,7 +98,7 @@ def es_comma(objective, bounds, n_iter, step_size, mu, lam, x_dados, y_dados):
 			# check if this parent is the best solution ever seen
 			if scores[i] < best_eval:
 				best, best_eval = population[i], scores[i]
-				#print('%d, Best: f(%s) = %.5f' % (epoch, best, best_eval))
+				print('%d, Best: f(%s) = %.5f' % (epoch, best, best_eval))
 			# create children for parent
 			for _ in range(n_children):
 				child = None
@@ -122,8 +117,8 @@ seed(1)
 dimensoes = (n_camada_de_entrada * n_camada_oculta) + (n_camada_oculta * n_camada_saida) + n_camada_oculta + n_camada_saida
 n_elementos = dimensoes
 vetor_de_limites = []
-lower_bound = -100000000
-upper_bound = 100000000
+lower_bound = -20
+upper_bound = 20
 
 for _ in range(n_elementos):
     vetor_de_limites.append([lower_bound, upper_bound])
