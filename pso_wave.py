@@ -83,7 +83,7 @@ opcoes = {'c1': 0.5, 'c2': 0.3, 'w': 0.9}
 dimensoes = (n_camada_de_entrada * n_camada_oculta) + (n_camada_oculta * n_camada_saida) + n_camada_oculta + n_camada_saida
 otimizador = ps.single.GlobalBestPSO(n_particles=25, dimensions=dimensoes, options=opcoes)
 
-cost, pos = otimizador.optimize(f, iters=1000, X_selecionado=x_train.to_numpy(), Y_selecionado=y_train.to_numpy())
+cost, pos = otimizador.optimize(f, iters=100, X_selecionado=x_train.to_numpy(), Y_selecionado=y_train.to_numpy())
 
 def predict(pos, X_selecionado):
     logits = logits_function(pos, X_selecionado)
