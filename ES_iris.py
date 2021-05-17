@@ -136,7 +136,12 @@ best, score = es_comma(f, bounds, n_iter, step_size, mu, lam, x_train, y_train)
 print('Done!')
 print('f(%s) = %f' % (best, score))
 
+def predict(pos, X_selecionado):
+    logits = logits_function(pos, X_selecionado)
+    y_pred = np.argmax(logits, axis=1)
+    return y_pred
 
+print("Acurácia encontrada: {}".format((predict(best, x_test) == y_test).mean()))
 
 
 
