@@ -75,8 +75,8 @@ seed(1)
 # define range for input
 n_elementos = 3
 vetor_de_limites = []
-lower_bound = -5.0
-upper_bound = 5.0
+lower_bound = -100000000
+upper_bound = 100000000
 
 for _ in range(3):
     vetor_de_limites.append([lower_bound, upper_bound])
