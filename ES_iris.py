@@ -117,14 +117,14 @@ seed(1)
 dimensoes = (n_camada_de_entrada * n_camada_oculta) + (n_camada_oculta * n_camada_saida) + n_camada_oculta + n_camada_saida
 n_elementos = dimensoes
 vetor_de_limites = []
-lower_bound = -20
-upper_bound = 20
+lower_bound = -10
+upper_bound = 10
 
 for _ in range(n_elementos):
     vetor_de_limites.append([lower_bound, upper_bound])
 bounds = asarray(vetor_de_limites)
 # define the total iterations
-n_iter = 5000
+n_iter = 100
 # define the maximum step size
 step_size = 0.15
 # number of parents selected
