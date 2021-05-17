@@ -41,28 +41,17 @@ print('-----------------------------------------------')
 print('tail():'); print(x_train.tail())
 print('-----------------------------------------------')
 
-
-
-"""
-X = data.data
-y = data.target
-
-# Processo de normalização
-X = preprocessing.normalize(X)
-
-x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
-
-n_camada_de_entrada = 4
+n_camada_de_entrada = 21
 n_camada_oculta = 20
 n_camada_saida = 3
 
-numero_dados = 150
+#numero_dados = 5000
 
 def logits_function(p, X_selecionado):
-    W1 = p[0:80].reshape((n_camada_de_entrada, n_camada_oculta))
-    b1 = p[80:100].reshape((n_camada_oculta,))
-    W2 = p[100:160].reshape((n_camada_oculta,n_camada_saida))
-    b2 = p[160:163].reshape((n_camada_saida,))
+    W1 = p[0:420].reshape((n_camada_de_entrada, n_camada_oculta))
+    b1 = p[420:440].reshape((n_camada_oculta,))
+    W2 = p[440:500].reshape((n_camada_oculta,n_camada_saida))
+    b2 = p[500:503].reshape((n_camada_saida,))
 
     z1 = X_selecionado.dot(W1) + b1
     a1 = np.tanh(z1) # Ativação da primeira camada
@@ -102,4 +91,3 @@ def predict(pos, X_selecionado):
     return y_pred
 
 print("Acurácia encontrada: {}".format((predict(pos, x_test) == y_test).mean()))
-"""
