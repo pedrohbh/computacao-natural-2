@@ -6,6 +6,7 @@ from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 
 import pyswarms as ps
+from pyswarms.utils.plotters import (plot_cost_history, plot_contour, plot_surface)
 
 data = pd.read_csv('waveform.csv')
 for c in data.columns:
@@ -91,3 +92,7 @@ def predict(pos, X_selecionado):
     return y_pred
 
 print("Acurácia encontrada: {}".format((predict(pos, x_test.to_numpy()) == y_test.to_numpy()).mean()))
+
+
+plot_cost_history(cost_history=otimizador.cost_history)
+plt.show()
