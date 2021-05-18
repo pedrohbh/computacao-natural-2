@@ -6,6 +6,7 @@ from sklearn import preprocessing
 from sklearn.model_selection import train_test_split
 
 import pyswarms as ps
+from pyswarms.utils.plotters import (plot_cost_history, plot_contour, plot_surface)
 
 data = load_iris()
 
@@ -67,3 +68,7 @@ def predict(pos, X_selecionado):
     return y_pred
 
 print("Acurácia encontrada: {}".format((predict(pos, x_test) == y_test).mean()))
+
+
+plot_cost_history(cost_history=otimizador.cost_history)
+plt.show()
