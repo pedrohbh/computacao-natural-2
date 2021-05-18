@@ -147,7 +147,17 @@ def predict(pos, X_selecionado):
 
 print("Acurácia encontrada: {}".format((predict(best, x_test) == y_test).mean()))
 
+n_geracoes = np.array(n_geracoes)
+valor_otimo_geracao = np.array(valor_otimo_geracao)
+print(n_geracoes)
+print(valor_otimo_geracao)
 
+plt.title("Convergência")
+plt.plot(n_geracoes, valor_otimo_geracao, "--")
+plt.xlabel("Número Geração")
+plt.ylabel("Valor Ótimo")
+plt.yscale("log")
+plt.show()
 
 """
 otimizador = ps.single.GlobalBestPSO(n_particles=25, dimensions=dimensoes, options=opcoes)
