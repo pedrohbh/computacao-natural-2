@@ -77,6 +77,8 @@ def es_comma(objective, bounds, n_iter, step_size, mu, lam, x_dados, y_dados):
 	best, best_eval = None, 1e+10
 	n_geracoes = []
 	valor_otimo_geracao = []
+	n_iteracoes = []
+	numero_atual_de_iteracoes = 0
 	# calculate the number of children per parent
 	n_children = int(lam / mu)
 	# initial population
@@ -91,6 +93,8 @@ def es_comma(objective, bounds, n_iter, step_size, mu, lam, x_dados, y_dados):
 		n_geracoes.append(epoch)
 		# evaluate fitness for the population
 		scores = [objective(c, x_dados, y_dados) for c in population]
+		numero_atual_de_iteracoes += len(population)
+		n_iteracoes.append(numero_atual_de_iteracoes)
 		# rank scores in ascending order
 		ranks = argsort(argsort(scores))
 		# select the indexes for the top mu ranked solutions
